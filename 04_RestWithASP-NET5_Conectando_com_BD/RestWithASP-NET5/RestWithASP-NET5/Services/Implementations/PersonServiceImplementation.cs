@@ -17,15 +17,19 @@ namespace RestWithASP_NET5.Services.Implementations
             _context = context;
         }
 
+        // Method responsible for returning all people
         public List<Person> FindAll()
         {
             return _context.Persons.ToList();
         }
 
+        // Method responsible for returning one person by ID
         public Person FindByID(long id)
         {
             return _context.Persons.SingleOrDefault(p => p.Id .Equals(id));
         }
+
+        // Method responsible to create one new person
         public Person Create(Person person)
         {
             try
@@ -40,14 +44,20 @@ namespace RestWithASP_NET5.Services.Implementations
             return person;
         }
 
+        // Method responsible for updating one person
         public Person Update(Person person)
         {
+            // We check if the person exists in the database
+            // If it doesn't exist we return an empty person instance
             if(!Exists(person.Id)) return new Person(); 
+            
+            // Get the current status of the record in the database
             var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(person.Id));
             if(result != null)
             {
                 try
                 {
+                    // Set changes and save
                     _context.Entry(result).CurrentValues.SetValues(person);
                     _context.SaveChanges();
                 }
@@ -59,6 +69,8 @@ namespace RestWithASP_NET5.Services.Implementations
             
             return person;
         }
+
+        // Method responsible for deleting a person from an ID
         public void Delete(long Id)
         {
             var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(Id));
