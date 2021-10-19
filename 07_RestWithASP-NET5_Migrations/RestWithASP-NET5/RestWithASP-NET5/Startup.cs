@@ -55,6 +55,8 @@ namespace RestWithASP_NET5
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
+            services.AddScoped<IBooksRepository, BooksRepositoryImplementation>();
         }
 
 
