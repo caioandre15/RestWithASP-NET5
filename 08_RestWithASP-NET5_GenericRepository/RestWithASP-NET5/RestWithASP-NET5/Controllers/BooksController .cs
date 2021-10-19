@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithASP_NET5.Business;
-using RestWithASP_NET5.Business.Implementations;
 using RestWithASP_NET5.Model;
-using RestWithASP_NET5.Repository.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestWithASP_NET5.Controllers
 {
