@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Business.Implementations;
+using RestWithASP_NET5.HyperMedia.Enricher;
+using RestWithASP_NET5.HyperMedia.Filters;
 using RestWithASP_NET5.Model.Context;
 using RestWithASP_NET5.Repository;
 using RestWithASP_NET5.Repository.Generic;
@@ -54,6 +56,12 @@ namespace RestWithASP_NET5
             })
             .AddXmlSerializerFormatters();
 
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new BooksEnricher());
+
+            services.AddSingleton(filterOptions);
+
             // Versioning API
             services.AddApiVersioning();
 
@@ -81,6 +89,7 @@ namespace RestWithASP_NET5
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
         }
         private void MigrateDatabase(string connection)

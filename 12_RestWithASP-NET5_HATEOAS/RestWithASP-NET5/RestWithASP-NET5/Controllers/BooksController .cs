@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Data.VO;
+using RestWithASP_NET5.HyperMedia.Filters;
 
 namespace RestWithASP_NET5.Controllers
 {
@@ -26,6 +27,7 @@ namespace RestWithASP_NET5.Controllers
         // Maps GET requests to https://localhost:{port}/api/person
         // Get no parameters for FindAll -> Search All
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(_booksBusiness.FindAll());
@@ -35,6 +37,7 @@ namespace RestWithASP_NET5.Controllers
         // receiving an ID as in the Request Path
         // Get with parameters for FindById -> Search by ID
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
             var books = _booksBusiness.FindByID(id);
@@ -45,6 +48,7 @@ namespace RestWithASP_NET5.Controllers
         // Maps POST requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] BooksVO books)
         {
             if (books == null) return BadRequest();
@@ -54,6 +58,7 @@ namespace RestWithASP_NET5.Controllers
         // Maps PUT requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] BooksVO books)
         {
             if (books == null) return BadRequest();
