@@ -3,7 +3,7 @@ using RestWithASP_NET5.Model;
 
 namespace RestWithASP_NET5.Repository
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         User ValidateCredentials(UserVO user);
 
